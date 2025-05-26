@@ -52,53 +52,56 @@ $responses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?php include __DIR__ . '/../includes/header.php'; ?>
 
-<h2><?= htmlspecialchars($thread['title']) ?></h2>
-<p><?= nl2br(htmlspecialchars($thread['content'])) ?></p>
-<p><small>投稿者: <?= htmlspecialchars($thread['username']) ?> / <?= $thread['created_at'] ?></small></p>
+<main>
+    <h2><?= htmlspecialchars($thread['title']) ?></h2>
+    <p>著者:<?= htmlspecialchars($thread['author']) ?></p>
+    <p><?= nl2br(htmlspecialchars($thread['content'])) ?></p>
+    <p><small>投稿者: <?= htmlspecialchars($thread['username']) ?> / <?= $thread['created_at'] ?></small></p>
 
-<?php if (is_logged_in() && $_SESSION['user_id'] === $thread['user_id']): ?>
-    <p>
-        <a href="edit_thread.php?id=<?= htmlspecialchars($thread['id']) ?>">[編集]</a>
-        <a href="delete_thread.php?id=<?= htmlspecialchars($thread['id']) ?>" onclick="return confirm('本当に削除しますか？');">[削除]</a>
-    </p>
-<?php endif; ?>
+    <?php if (is_logged_in() && $_SESSION['user_id'] === $thread['user_id']): ?>
+        <p>
+            <a href="edit_thread.php?id=<?= htmlspecialchars($thread['id']) ?>">[編集]</a>
+            <a href="delete_thread.php?id=<?= htmlspecialchars($thread['id']) ?>" onclick="return confirm('本当に削除しますか？');">[削除]</a>
+        </p>
+    <?php endif; ?>
 
-<hr>
+    <hr>
 
-<h3>レス一覧</h3>
+    <h3>コメント一覧</h3>
 
-<?php if (count($responses) === 0): ?>
-    <p>まだレスがありません。</p>
-<?php else: ?>
-    <ul>
-    <?php foreach ($responses as $res): ?>
-        <li>
-            <?= nl2br(htmlspecialchars($res['content'])) ?><br>
-            <small>投稿者: <?= htmlspecialchars($res['username']) ?> / <?= $res['created_at'] ?></small>
+    <?php if (count($responses) === 0): ?>
+        <p>まだコメントがありません。</p>
+    <?php else: ?>
+        <ul>
+        <?php foreach ($responses as $res): ?>
+            <li>
+                <?= nl2br(htmlspecialchars($res['content'])) ?><br>
+                <small>投稿者: <?= htmlspecialchars($res['username']) ?> / <?= $res['created_at'] ?></small>
 
-            <?php if (is_logged_in() && $_SESSION['user_id'] === $res['user_id']): ?>
-                <div>
-                    <a href="edit_response.php?id=<?= htmlspecialchars($res['id']) ?>">[編集]</a>
-                    <a href="delete_response.php?id=<?= htmlspecialchars($res['id']) ?>" onclick="return confirm('本当に削除しますか？');">[削除]</a>
-                </div>
-            <?php endif; ?>
-        </li>
-    <?php endforeach; ?>
+                <?php if (is_logged_in() && $_SESSION['user_id'] === $res['user_id']): ?>
+                    <div>
+                        <a href="edit_response.php?id=<?= htmlspecialchars($res['id']) ?>">[編集]</a>
+                        <a href="delete_response.php?id=<?= htmlspecialchars($res['id']) ?>" onclick="return confirm('本当に削除しますか？');">[削除]</a>
+                    </div>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
 
-    </ul>
-<?php endif; ?>
+        </ul>
+    <?php endif; ?>
 
-<hr>
+    <hr>
 
-<?php if (is_logged_in()): ?>
-    <h3>レスを投稿する</h3>
-    <p style="color: red;"><?= $message ?></p>
-    <form method="POST">
-        <textarea name="content" rows="4" cols="60" required></textarea><br><br>
-        <button type="submit">投稿</button>
-    </form>
-<?php else: ?>
-    <p><a href="login.php">ログイン</a>してレスを投稿してください。</p>
-<?php endif; ?>
+    <?php if (is_logged_in()): ?>
+        <h3>コメントを投稿する</h3>
+        <p style="color: red;"><?= $message ?></p>
+        <form method="POST">
+            <textarea name="content" rows="4" cols="60" required></textarea><br><br>
+            <button type="submit">投稿</button>
+        </form>
+    <?php else: ?>
+        <p><a href="login.php">ログイン</a>してコメントを投稿してください。</p>
+    <?php endif; ?>
+</main>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>

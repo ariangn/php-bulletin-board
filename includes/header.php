@@ -3,15 +3,24 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>掲示板アプリ</title>
+    <title>komoread</title>
     <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" href="assets/komoread-icon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kiwi Maru', sans-serif;
+        }
+    </style>
+
 </head>
 <body>
 <header>
-    <h1><a href="index.php">掲示板</a></h1>
+    <h1><a href="index.php" class="title">komoread</a></h1>
+    <small style="display:block; color:#ffe;">森のなかの小さな読書会</small>
     <nav>
         <?php if (is_logged_in()): ?>
-            <a href="create_thread.php">スレッド作成</a> |
+            <a href="create_thread.php">本を新規登録</a> |
             <a href="logout.php">ログアウト</a>
         <?php else: ?>
             <a href="register.php">ユーザー登録</a> |

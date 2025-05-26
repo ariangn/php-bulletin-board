@@ -1,0 +1,70 @@
+body {
+    font-family: "Hiragino Kaku Gothic ProN", sans-serif;
+    background-color: #f9f6f1;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-image: url('../assets/forest-pattern.png'); /* optional background */
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+header, footer {
+    background-color: #5b4c3b;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+
+.title {
+    text-decoration: none;
+    color: #f9f6f1;
+    transition: all 0.3s ease;
+}
+.title:hover {
+    color: #7bbf6a;
+    font-size: 1.2em;
+}
+
+nav a {
+    color: #ffe8b8;
+    margin: 0 0.5em;
+    text-decoration: none;
+}
+
+main {
+    padding-left: 2em;
+    padding-right: 2em;
+}
+  
+
+h1, h2, h3 {
+    color: #3a2f24;
+}
+
+.book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    padding: 1em;
+    justify-content: center;
+}
+
+.book-cover {
+    width: 150px;
+    height: 220px;
+    padding: 1em;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.book-cover:hover {
+    transform: scale(1.05);
+}

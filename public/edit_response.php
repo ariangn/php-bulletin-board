@@ -5,7 +5,7 @@ redirect_if_not_logged_in();
 
 $response_id = $_GET['id'] ?? null;
 if (!$response_id) {
-    die('レスIDが指定されていません。');
+    die('コメントIDが指定されていません。');
 }
 
 // fetch response
@@ -14,12 +14,12 @@ $stmt->execute([$response_id]);
 $response = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$response) {
-    die('レスが見つかりません。');
+    die('コメントが見つかりません。');
 }
 
 // ownership check
 if ($_SESSION['user_id'] !== $response['user_id']) {
-    die('このレスを編集する権限がありません。');
+    die('このコメントを編集する権限がありません。');
 }
 
 $message = '';
@@ -37,13 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <?php include __DIR__ . '/../includes/header.php'; ?>
+<main>
+    <h2>コメント編集</h2>
+    <p style="color: red;"><?= $message ?></p>
 
-<h2>レス編集</h2>
-<p style="color: red;"><?= $message ?></p>
-
-<form method="POST">
-    <textarea name="content" rows="5" cols="60" required><?= htmlspecialchars($response['content']) ?></textarea><br><br>
-    <button type="submit">更新</button>
-</form>
-
+    <form method="POST">
+        <textarea name="content" rows="5" cols="60" required><?= htmlspecialchars($response['content']) ?></textarea><br><br>
+        <button type="submit">更新</button>
+    </form>
+</main>
 <?php include __DIR__ . '/../includes/footer.php'; ?>
