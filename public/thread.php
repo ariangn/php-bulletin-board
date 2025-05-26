@@ -19,7 +19,7 @@ $thread = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$thread) {
     die('スレッドが見つかりません。');
-}
+} 
 
 // handle new response POST
 $message = '';
@@ -56,6 +56,13 @@ $responses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <p><?= nl2br(htmlspecialchars($thread['content'])) ?></p>
 <p><small>投稿者: <?= htmlspecialchars($thread['username']) ?> / <?= $thread['created_at'] ?></small></p>
 
+<?php if (is_logged_in() && $_SESSION['user_id'] === $thread['user_id']): ?>
+    <p>
+        <a href="edit_thread.php?id=<?= htmlspecialchars($thread['id']) ?>">[編集]</a>
+        <a href="delete_thread.php?id=<?= htmlspecialchars($thread['id']) ?>" onclick="return confirm('本当に削除しますか？');">[削除]</a>
+    </p>
+<?php endif; ?>
+
 <hr>
 
 <h3>レス一覧</h3>
@@ -64,12 +71,20 @@ $responses = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <p>まだレスがありません。</p>
 <?php else: ?>
     <ul>
-        <?php foreach ($responses as $res): ?>
-            <li>
-                <?= nl2br(htmlspecialchars($res['content'])) ?><br>
-                <small>投稿者: <?= htmlspecialchars($res['username']) ?> / <?= $res['created_at'] ?></small>
-            </li>
-        <?php endforeach; ?>
+    <?php foreach ($responses as $res): ?>
+        <li>
+            <?= nl2br(htmlspecialchars($res['content'])) ?><br>
+            <small>投稿者: <?= htmlspecialchars($res['username']) ?> / <?= $res['created_at'] ?></small>
+
+            <?php if (is_logged_in() && $_SESSION['user_id'] === $res['user_id']): ?>
+                <div>
+                    <a href="edit_response.php?id=<?= htmlspecialchars($res['id']) ?>">[編集]</a>
+                    <a href="delete_response.php?id=<?= htmlspecialchars($res['id']) ?>" onclick="return confirm('本当に削除しますか？');">[削除]</a>
+                </div>
+            <?php endif; ?>
+        </li>
+    <?php endforeach; ?>
+
     </ul>
 <?php endif; ?>
 
