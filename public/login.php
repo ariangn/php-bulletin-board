@@ -25,13 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php include __DIR__ . '/../includes/header.php'; ?>
 
-<h2>ログイン</h2>
-<p style="color: red;"><?= $message ?></p>
+<main>
 
-<form method="POST">
-    <label>ユーザー名: <input type="text" name="username" required></label><br><br>
-    <label>パスワード: <input type="password" name="password" required></label><br><br>
-    <button type="submit">ログイン</button>
-</form>
+    <h2>ログイン</h2>
+    <p style="color: red;"><?= $message ?></p>
 
+    <form method="POST">
+        <label>ユーザー名: <input type="text" name="username" required></label><br><br>
+        <label>パスワード: <input type="password" name="password" required></label><br><br>
+        <button type="submit">ログイン</button>
+    </form>
+</main>
 <?php include __DIR__ . '/../includes/footer.php'; ?>
